@@ -1,0 +1,11 @@
+.main_div
+{
+    width: 100%;
+    height: 50px;
+    background-color: black;
+}
+
+.menu{
+    color: white;
+    list-style-type:none;
+}

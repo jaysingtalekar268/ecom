@@ -7,7 +7,7 @@ module.exports = {
     production: {
       key: "ecom-nextjs.pem",
       user: 'ubuntu',
-      host: '13.233.99.152',
+      host: '3.110.213.138',
       ref: 'origin/development',
       repo: 'git@github.com:jaysingtalekar268/ecom.git',
       path: '/home/ubuntu/source/client',

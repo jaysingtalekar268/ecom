@@ -1,15 +1,308 @@
-const express = require("express")
+const dotenv = require("dotenv");
+dotenv.config();
+
 const cors = require("cors");
+const express = require('express');
+const session = require("express-session");
+
+const AWS = require("aws-sdk")
+
+const multer = require('multer');
+
+require('./db/config');
+const productSchema = require("./db/product")
+
+const userSchema = require("./db/user");
+const product = require("./db/product");
+
 
 const app = express();
-const port = 3001;
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
+app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: "secret"
+}));
 
-app.get('/', (req, resp) => {
-    resp.send("server is working")
+
+const awsConfig = {
+    accessKeyId: 'AKIAQUCEESBQEDOKNZC3',
+    secretAccessKey: 's+gdviQlI8C6pezOFDXkHCFrMGrjqpnl0bXQZf1e',
+    region: 'ap-south-1', // e.g., 'us-east-1'
+};
+
+const S3 = new AWS.S3(awsConfig);
+
+let upload = multer({
+    limits: 1204 * 1024 * 5,
+    fileFilter: (req, file, done) => {
+        if (file.mimetype === "image/jpeg" || file.mimetype === "image/jpg" || file.mimetype === "image/png")
+            done(null, true)
+        else
+            done("FIle type not supported", false)
+    },
 })
 
-app.listen(port, () => {
-    console.warn("Server Started on port " + port);
+const uploadTOs3 = (fileData) => {
+    return new Promise((resolve, reject) => {
+        const params = {
+            Bucket: "ecommerce-bucket-aws",
+            Key: `${Date.now().toString()}.jpg`,
+            Body: fileData
+        }
+
+        S3.upload(params, (err, data) => {
+            if (err) {
+                console.warn(err)
+                reject(err)
+            }
+            console.warn(data)
+            return resolve(data)
+        })
+    })
+}
+
+app.post("/multipleUpload", upload.array("images", 3), (req, resp) => {
+    console.warn(req.files)
+
+    if (req.files.length > 0) {
+        for (let i = 0; i < req.files.length; i++) {
+            uploadTOs3(req.files[i].buffer).then((result) => {
+                console.warn("uploaded image url", result.Location)
+            })
+        }
+    }
+
+    resp.json({
+        msg: `${req.files.length} Images uploaded successfully`
+    })
 })
+
+
+
+
+app.post("/upload", upload.single("image"), (req, resp) => {
+    console.warn(req.file)
+
+    if (req.file) {
+        uploadTOs3(req.file.buffer).then((result) => {
+
+
+            return resp.json({
+                msg: "uploaded sucessfully",
+                imageURl: result.Location,
+            })
+        }).catch((err) => {
+            console.warn(err)
+        })
+    }
+})
+
+
+
+
+
+
+
+
+
+app.get("/", (req, resp) => {
+    resp.send("api is working");
+})
+
+app.post("/login", async (req, resp) => {
+
+    let result = await userSchema.findOne({
+        username: req.body.userName,
+        password: req.body.userPwd,
+    })
+
+    console.warn("user login " + result)
+    if (result?.username == req.body.userName) {
+        resp.send({
+            userId: result._id,
+            userRole: result.role,
+            success: true,
+            message: "user loged in ",
+        }
+        );
+    }
+    else {
+        resp.send({
+            success: false,
+            message: "user not loged in ",
+        }
+        );
+    }
+
+})
+
+app.post("/register", async (req, resp) => {
+    let newUser = new userSchema({
+        username: req.body.userName,
+        password: req.body.userPwd,
+        role: req.body.userRole,
+        cart: [],
+    })
+    let result = await newUser.save()
+    console.warn("register result" + result)
+    if (result.username == req.body.userName) {
+        resp.send({
+            success: true,
+            message: "user registered",
+        }
+        );
+    }
+    else {
+        resp.send({
+            success: false,
+            message: "user not registred",
+        }
+        );
+    }
+})
+
+app.post("/addProduct", upload.single("image"), async (req, resp) => {
+    console.warn("\n\n\n")
+    // console.warn(req.file)
+    console.warn("\n\n\n")
+
+    if (req.file) {
+        let uploadedImageObject = null;
+        uploadedImageObject = await uploadTOs3(req.file.buffer).then((result) => {
+
+
+            return {
+                msg: "uploaded sucessfully",
+                imageURl: result.Location,
+            }
+        }).catch((err) => {
+            console.warn(err)
+        })
+        console.warn("uploadedImageObject" + uploadedImageObject.imageURl)
+
+        if (uploadedImageObject?.imageURl != "") {
+            let productData = JSON.parse(req.body?.productData);
+            if (productData.productName) {
+                let newProduct = new productSchema({
+                    name: productData.productName,
+                    description: productData.productDesc,
+                    price: productData.productPrice,
+                    catgory: productData.productCatg,
+                    discount: 0,
+                    imageURL: uploadedImageObject.imageURl,
+                })
+                let result = await newProduct.save()
+                console.warn("product added successfully" + result)
+                if (result.name == productData.productName) {
+                    resp.send({
+                        success: true,
+                        message: "product added successfully",
+                    }
+                    );
+                }
+                else {
+                    resp.send({
+                        success: false,
+                        message: "product not added . failed to upload product details",
+                    }
+                    );
+                }
+            }
+            else {
+                resp.send({
+                    success: false,
+                    message: "product not added . product details not found",
+                })
+            }
+
+        }
+        else {
+            return resp.send({
+                success: false,
+                message: "product not added, failed to upload image"
+            })
+        }
+
+    }
+
+
+
+})
+
+app.get("/getProduct", async (req, resp) => {
+    let productData = await product.find();
+
+    if (productData) {
+        resp.send({
+            success: true,
+            message: "Product Fetched Successfully",
+            productData,
+        })
+    }
+    else {
+        resp.send({
+            success: false,
+            message: "Product not Fetched ",
+            productDat: [],
+        })
+    }
+})
+// app.post("/upload",async (req,resp)=>{
+//     AWS.config.update({
+
+//     })
+// })
+
+
+app.get("/getCart", async (req, resp) => {
+    const userId = req.query?.userId;
+
+    let result = await userSchema.findOne({ _id: userId }).populate('cart').select("cart");
+    console.warn(result)
+    if (result?._id == userId) {
+        resp.send({
+            success: true,
+            message: "cart data fetched successfully",
+            cartData: result
+        })
+    }
+    else {
+
+        resp.send({
+            success: false,
+            message: "failed to fetch cart data"
+        })
+    }
+
+
+})
+
+app.post("/addToCart", async (req, resp) => {
+    let result = await userSchema.updateOne({ _id: req.body.userId },
+        { $push: { cart: req.body.productId } }
+    )
+
+    // console.warn(result)
+
+    if (result.acknowledged && result.modifiedCount >= 1) {
+        resp.send({
+            success: true,
+            message: "Product added to cart",
+        })
+    }
+    else {
+
+        resp.send({
+            success: false,
+            message: "Product not  added to cart",
+        })
+    }
+
+})
+
+
+
+
+app.listen(3001);

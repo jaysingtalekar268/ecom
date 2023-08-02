@@ -8,4 +8,11 @@
 .menu{
     color: white;
     list-style-type:none;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.menu_options{
+    margin: 10px;
 }

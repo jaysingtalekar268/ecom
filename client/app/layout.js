@@ -5,13 +5,12 @@ import ReduxStoreProvider from "../store/provider"
 import NavbarComponent from '@/components/navbar/navbar';
 
 
-const inter = Inter({ subsets: ['latin'] })
 
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body >
         <ReduxStoreProvider>
           <NavbarComponent></NavbarComponent>
          

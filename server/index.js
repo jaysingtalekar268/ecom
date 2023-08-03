@@ -18,7 +18,12 @@ const product = require("./db/product");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: [`${process.env.NEXTJS_DOMAIN}`,'http://localhost:3000']
+    // You can also use an array of allowed origins:
+    // origin: ['http://your-nextjs-app-domain', 'http://another-allowed-domain'],
+  }));
+  
 app.use(session({
     saveUninitialized: true,
     resave: true,

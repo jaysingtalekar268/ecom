@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
-const corsMiddleware = require('./cors');
+
 const cors = require("cors");
 const express = require('express');
 const session = require("express-session");
@@ -19,9 +19,7 @@ const user = require("./db/user");
 
 
 const app = express();
-
 app.use(express.json());
-app.use(corsMiddleware);
 app.use(cors({
     origin: [`${process.env.NEXTJS_DOMAIN}`, 'http://localhost:3000']
     // You can also use an array of allowed origins:

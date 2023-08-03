@@ -4,8 +4,7 @@ import {
     useState,
 } from 'react'
 
-import { useRouter, useSelectedLayoutSegments } from 'next/navigation';
-import Cookies from 'universal-cookie';
+import { useRouter} from 'next/navigation';
 import {
     handleLogin,
     handleRegister,
@@ -20,8 +19,8 @@ const dispatch = useDispatch();
     const [userRole, setUserRole] = useState("");
     const [loginMessage, setLoginMessage] = useState("");
     const [register, setRegister] = useState(false);
-
-    const router = useRouter();
+    
+    const router=useRouter()
 
     useEffect(() => {
         localStorage.clear();

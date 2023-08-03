@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from 'react';
+import { useEffect ,useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useSelector, useDispatch } from "react-redux"
@@ -8,13 +8,17 @@ import { setCartData } from '@/store/features/cartSlice/cartSlice';
 
 export default function CartComponent() {
     const dispatch = useDispatch();
-
-let userDetails =JSON.parse(localStorage.getItem("ecom"));
+    const [userDetails,setUserDetails] =useState();
+    useEffect(()=>{
+        setUserDetails(JSON.parse(localStorage.getItem('ecom')));
+  
+    },[])
 
    useEffect ( ()=>{
         
-        
+        if(userDetails!=undefined || userDetails?.userId!=undefined)
         getdata()
+        
 
     },[])
 

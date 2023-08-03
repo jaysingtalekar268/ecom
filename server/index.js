@@ -27,9 +27,9 @@ app.use(session({
 
 
 const awsConfig = {
-    accessKeyId: 'AKIAQUCEESBQEDOKNZC3',
-    secretAccessKey: 's+gdviQlI8C6pezOFDXkHCFrMGrjqpnl0bXQZf1e',
-    region: 'ap-south-1', // e.g., 'us-east-1'
+    accessKeyId: `${process.env.ACCESSKEYID}`,
+    secretAccessKey: `${process.env.SECRETACCESSKEY}`,
+    region: `${process.env.REGION}`, // e.g., 'us-east-1'
 };
 
 const S3 = new AWS.S3(awsConfig);

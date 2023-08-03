@@ -1,3 +1,4 @@
+"use client"
 import { addToCart } from "@/queries/cart/cart.queries"
 
 export const handleAddToCart= async (

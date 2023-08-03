@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import productStyle from "../../styles/product/product.module.css"
 import Image from 'next/image'
 import productImage from "../../public/product.jpeg"
@@ -8,20 +8,27 @@ import AddProduct from './addProduct'
 import { useRouter } from 'next/navigation'
 
 export default function Product() {
-  const router = useRouter();
-    const userCookie = JSON.parse(localStorage.getItem('ecom'));
-    
-    if(!userCookie?.userRole &&userCookie==null && userCookie==undefined)
-    {
-     return  router.replace("/login")
-    }
 
-    const userRole= userCookie.userRole;
+  const router = useRouter();
+  const [userCookie,setUserCookie] =useState();
+  useEffect(()=>{
+    let tempCookie=JSON.parse(localStorage.getItem('ecom'));
+    if(tempCookie==undefined && tempCookie?.userRole==undefined &&tempCookie==null )
+    {
+      router.replace("/login")
+    }
+    setUserCookie(tempCookie);
+   
+  },[])
+    
+    
+
+    const userRole= userCookie?.userRole;
 
 
     return (
         <div className={productStyle.main_div}>
-          { userRole=="user" ?
+          { userRole&& userRole=="user" ?
            ( <ShowProducts></ShowProducts>)
             :
             (<AddProduct></AddProduct>)

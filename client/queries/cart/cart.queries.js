@@ -1,3 +1,5 @@
+"use client"
+
 import axiosInstance from "@/lib/axios/axios"
 
 export const getCartData = async (data) => {

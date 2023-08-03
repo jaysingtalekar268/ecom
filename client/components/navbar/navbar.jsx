@@ -1,8 +1,11 @@
 "use client"
+import { useState, useEffect } from "react";
 import navbarStyle from "../../styles/navbar/navbar.module.css"
 import { useRouter } from "next/navigation"
 export default function NavbarComponent() {
-    const router = useRouter();
+
+    const router=useRouter()
+
     return (
         <div className={navbarStyle.main_div}>
             <ul className={navbarStyle.menu}>

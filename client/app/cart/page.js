@@ -1,3 +1,5 @@
+"use client"
+
 import CartComponent from "@/components/cart/cart"
 
 const page = () => {

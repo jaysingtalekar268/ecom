@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
-
+const corsMiddleware = require("./corsMiddleWare.js")
 const cors = require("cors");
 const express = require('express');
 const session = require("express-session");
@@ -25,6 +25,8 @@ app.use(cors({
     // You can also use an array of allowed origins:
     // origin: ['http://your-nextjs-app-domain', 'http://another-allowed-domain'],
 }));
+
+app.use(corsMiddleware)
 
 app.use(session({
     saveUninitialized: true,

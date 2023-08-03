@@ -22,3 +22,13 @@ export const addToCart = async (data) => {
 
     }
 }
+
+export const placeOrderData = async (data) => {
+    try {
+        let result = await axiosInstance.post("/placeOrder", data);
+        return result
+    } catch (error) {
+        console.warn("something went wrong while placing  data from cart quereis" + error)
+
+    }
+}

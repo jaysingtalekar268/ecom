@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
-
+const corsMiddleware = require('./cors');
 const cors = require("cors");
 const express = require('express');
 const session = require("express-session");
@@ -14,16 +14,20 @@ const productSchema = require("./db/product")
 
 const userSchema = require("./db/user");
 const product = require("./db/product");
+const orderSchema = require("./db/orders");
+const user = require("./db/user");
 
 
 const app = express();
+
 app.use(express.json());
+app.use(corsMiddleware);
 app.use(cors({
-    origin: [`${process.env.NEXTJS_DOMAIN}`,'http://localhost:3000']
+    origin: [`${process.env.NEXTJS_DOMAIN}`, 'http://localhost:3000']
     // You can also use an array of allowed origins:
     // origin: ['http://your-nextjs-app-domain', 'http://another-allowed-domain'],
-  }));
-  
+}));
+
 app.use(session({
     saveUninitialized: true,
     resave: true,
@@ -147,7 +151,8 @@ app.post("/register", async (req, resp) => {
     let newUser = new userSchema({
         username: req.body.userName,
         password: req.body.userPwd,
-        role: req.body.userRole,
+        email: req.body.userRole,
+        role: "user",
         cart: [],
     })
     let result = await newUser.save()
@@ -307,7 +312,105 @@ app.post("/addToCart", async (req, resp) => {
 
 })
 
+/////////////////////////////////////////////////////////////////////
+//              EMAIl           //EMAIL
 
 
+
+// Set your AWS credentials and region
+AWS.config.update({
+    accessKeyId: `${process.env.ACCESSKEYID}`,
+    secretAccessKey: `${process.env.SECRETACCESSKEY}`,
+    region: `${process.env.REGION}`, // e.g., 'us-east-1'
+});
+
+const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+
+const sendEmail = async (emailData) => {
+
+    try {
+        const senderEmail = `${process.env.EMAIL_ADDRESS}`; // Must be a verified email in AWS SES
+        const recipientEmail = emailData.customerEmail;
+        const subject = emailData.emailSubject;
+        const body = emailData.emailBody;
+
+        // Create the email message
+        const emailParams = {
+            Source: senderEmail,
+            Destination: { ToAddresses: [recipientEmail] },
+            Message: {
+                Subject: { Data: subject },
+                Body: { Text: { Data: body } },
+            },
+        };
+
+        // Send the email
+        const emailResult = await ses.sendEmail(emailParams).promise();
+        console.log('Email sent:', emailResult);
+
+        return emailResult;
+    } catch (err) {
+        console.error('Error sending email:', err);
+        throw err;
+    }
+
+
+}
+
+
+
+app.post("/placeOrder", async (req, resp) => {
+
+    let newOrder = await orderSchema({
+        userid: req.body.userId,
+
+        products: req.body.product,
+        orderEvent: {
+            eventName: "Order Placecd",
+
+            event_date: Date.now(),
+        }
+    })
+
+    let result = await newOrder.save();
+
+    console.warn("result of order place")
+    console.warn(result)
+
+    if (result?.userid == req?.body.userId) {
+        let userData = await user.findOne({ _id: req.body.userId })
+        console.warn("find one Data")
+        console.warn(userData)
+
+        let emailData = {
+            emailBody: `Dear Custoemr,
+                        ${userData.username} 
+                        your order is placed successfully`,
+            emailSubject: "Order Update",
+            customerEmail: userData.email
+        }
+        await sendEmail(emailData)
+        resp.send({
+            success: true,
+            message: "Order Placed successfully"
+        })
+
+    }
+    else {
+        resp.send({
+            success: false,
+            message: "failed to  Placed order"
+        })
+
+    }
+
+
+})
+
+
+
+//              EMAIl           //EMAIL
+
+/////////////////////////////////////////////////////////////////////
 
 app.listen(3001);

@@ -7,9 +7,10 @@ import showProductstyles from "../../styles/product/showProduct.module.css"
 import Cookies from 'universal-cookie';
 import { useEffect, useState } from 'react';
 import { getProductData } from '@/queries/product/product.queries';
-import {useSelector,useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { handleAddToCart } from './productFunction';
-
+import { useRouter } from 'next/navigation';
+import { setBuyNowData } from '@/store/features/cartSlice/cartSlice';
 export default function ShowProducts() {
     const cookieValue = JSON.parse(localStorage.getItem('ecom'));
     const [productData, setProductData] = useState([]);
@@ -22,6 +23,8 @@ export default function ShowProducts() {
         getProduts();
     }, [])
 
+    const router = useRouter();
+
     const getProduts = async () => {
         let result = await getProductData();
         setProductDataMSg(result.data.message)
@@ -29,7 +32,14 @@ export default function ShowProducts() {
             setProductData(result.data.productData)
         }
     }
-    
+
+    const handleBuyNow = (index) => {
+        dispatch(
+setBuyNowData(productData[index])
+        )
+        router.push("/orders/buy")
+            
+    };
 
     // Convert the JSON string back to an object
 
@@ -45,13 +55,13 @@ export default function ShowProducts() {
                             {element.description}
                         </Card.Text>
                         <Card.Text variant="primary">Price ₹{element.price}</Card.Text>
-                        <Button variant="primary" onClick={()=>handleAddToCart(
+                        <Button variant="primary" onClick={() => handleAddToCart(
                             element._id,//product id
                             userCartData,
                             dispatch,
-                            
-                            )}>Add To cart</Button>
-                        <Button variant="primary">Buy Now</Button>
+
+                        )}>Add To cart</Button>
+                        <Button variant="primary" onClick={() => handleBuyNow(index)}>Buy Now</Button>
                     </Card.Body>
                 </Card>
             )}

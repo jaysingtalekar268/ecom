@@ -1,12 +1,17 @@
-const mongoose= require("mongoose");
+const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-    username:String,
-    password:String,
-    role:String,
-    cart:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'products'
+    username: String,
+    password: String,
+    role: String,
+    email: String,
+    cart: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'products'
+    }],
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'orders'
     }],
 })
 

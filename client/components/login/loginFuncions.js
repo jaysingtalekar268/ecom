@@ -56,7 +56,6 @@ export const handleLogin = async (
 }
 
 export const getCart = async (data) => {
-    alert("get cart called")
     try {
         let result = await getCartData(data);
         if (result.data.success) {

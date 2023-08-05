@@ -1,6 +1,6 @@
 "use client"
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Button, Card, Container } from 'react-bootstrap';
+
 import productImage from "../../public/product.jpeg"
 import Image from 'next/image';
 import showProductstyles from "../../styles/product/showProduct.module.css"
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { handleAddToCart } from './productFunction';
 import { useRouter } from 'next/navigation';
 import { setBuyNowData } from '@/store/features/cartSlice/cartSlice';
+import productStyle from '@/styles/product/showProduct.module.css'
 export default function ShowProducts() {
     const cookieValue = JSON.parse(localStorage.getItem('ecom'));
     const [productData, setProductData] = useState([]);
@@ -35,10 +36,10 @@ export default function ShowProducts() {
 
     const handleBuyNow = (index) => {
         dispatch(
-setBuyNowData(productData[index])
+            setBuyNowData(productData[index])
         )
         router.push("/orders/buy")
-            
+
     };
 
     // Convert the JSON string back to an object
@@ -47,23 +48,508 @@ setBuyNowData(productData[index])
         <div className={showProductstyles.main_div}>
             {console.warn(cookieValue)}
             {productData.map((element, index) =>
-                <Card style={{ width: '18rem' }} key={index}>
-                    <Card.Img variant="top" src={element?.imageURL} />
-                    <Card.Body>
-                        <Card.Title>{element.name}</Card.Title>
-                        <Card.Text>
-                            {element.description}
-                        </Card.Text>
-                        <Card.Text variant="primary">Price ₹{element.price}</Card.Text>
-                        <Button variant="primary" onClick={() => handleAddToCart(
-                            element._id,//product id
-                            userCartData,
-                            dispatch,
+                <>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
 
-                        )}>Add To cart</Button>
-                        <Button variant="primary" onClick={() => handleBuyNow(index)}>Buy Now</Button>
-                    </Card.Body>
-                </Card>
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                <Card key={index} className={productStyle.product_card}>
+                       
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
+                  
+                   <Card.Body className={productStyle.product_image}>
+                       <Card.Title>{element.name}</Card.Title>
+                       <Card.Text>
+                           {element.description}
+                       </Card.Text>
+                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                       <Container fluid className={productStyle.button_div}>
+                           <Button className={productStyle.cart_button}
+                               onClick={() => handleAddToCart(
+                                   element._id,//product id
+                                   userCartData,
+                                   dispatch,
+
+                               )}>Add To cart</Button>
+                           <Button className={productStyle.buy_button}
+                               onClick={() => handleBuyNow(index)}
+                           >Buy Now
+                           </Button>
+                       </Container>
+                   </Card.Body>
+               </Card>
+                </>
             )}
         </div>
     )

@@ -1,4 +1,46 @@
 .main_div{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.add_div{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.label{
+    font-size: 1.3rem;
+    margin: 5px 0px;
+}
+
+.input{
+    padding-left: 5px;
+    height: 40px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.preview_image{
+    margin: 10px;
+}
+
+
+.add_button{
+    height: 50px;
+    border-style: none;
+    border-radius: 15px;
+    width: 80%;
+    cursor: pointer;
+    margin: 5px 10px;
+    margin-left: 50px;
+}
+
+.add_button{
+    background-color: #ffa41c;
+}
+
+.add_button:hover{
+    background-color: #e39b2f;
 }

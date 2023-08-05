@@ -32,3 +32,13 @@ export const placeOrderData = async (data) => {
 
     }
 }
+
+export const getOrdersData = async (data) => {
+    try {alert("orderdta")
+        let result = await axiosInstance.get("/getOrders", data);
+        return result;
+    } catch (error) {
+        console.warn("something went wrong while order data from cart quereis" + error)
+
+    }
+}

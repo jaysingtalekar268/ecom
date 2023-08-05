@@ -19,16 +19,9 @@ const user = require("./db/user");
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-origin:"http://localhost:3000"
-}))
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
-    next();
-  });
+app.use(cors(
+    
+))
 
 app.use(session({
     saveUninitialized: true,
@@ -122,7 +115,7 @@ app.get("/", (req, resp) => {
     resp.send("api is working");
 })
 
-app.post("/login", async (req, resp,next) => {
+app.post("/login", async (req, resp) => {
 
     let result = await userSchema.findOne({
         username: req.body.userName,
@@ -409,6 +402,28 @@ app.post("/placeOrder", async (req, resp) => {
 
 })
 
+
+app.get("/getOrders",async(req,resp)=>{
+    let result = await orderSchema.find().populate('products');
+    // console.warn(result)
+
+    if (result.length>=1)
+    {
+
+        return resp.send({
+            success:true,
+            message:"Orders fetched successfully",
+            orderData:result
+        })
+    }else
+    {
+        return resp.send({
+            success:false,
+            message:"Failed to get Orders",
+            orderData:result
+        })
+    }
+})
 
 
 //              EMAIl           //EMAIL

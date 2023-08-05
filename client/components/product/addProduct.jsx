@@ -88,22 +88,27 @@ const AddProduct = () => {
 
     return (
         <>
-            <div className={addProductstyles.main_div}> add product
-                <label >enter product name</label>
-                <input onChange={(e) => setProductName(e.target.value)}></input>
-                <label >enter product desc</label>
-                <input onChange={(e) => setProductDesc(e.target.value)}></input>
-                <label >enter product price</label>
-                <input onChange={(e) => setProductPrice(e.target.value)}></input>
-                <label >enter product catg</label>
-                <input onChange={(e) => setProductCatg(e.target.value)}></input>
+            <div className={addProductstyles.main_div}> 
+                 <h1>Add Product</h1>
+                 <div className={addProductstyles.add_div}> 
 
-                <label >Add product Image</label>
-                <input type="file" onChange={handleFileChange}></input>
-                {previewProductImage && <Image width={100} height={100} src={previewProductImage}></Image>}
+                <label className={addProductstyles.label}>Enter Product Name</label>
+                <input className={addProductstyles.input} onChange={(e) => setProductName(e.target.value)}></input>
+                <label className={addProductstyles.label}>Enter Product Description</label>
+                <input className={addProductstyles.input}onChange={(e) => setProductDesc(e.target.value)}></input>
+                <label className={addProductstyles.label}>Enter Product Price</label>
+                <input className={addProductstyles.input}onChange={(e) => setProductPrice(e.target.value)}></input>
+                <label className={addProductstyles.label}>Enter Product Catgeory</label>
+                <input className={addProductstyles.input}onChange={(e) => setProductCatg(e.target.value)}></input>
+
+                <label className={addProductstyles.label}>Add Product Image</label>
+                <input className={addProductstyles.input} type="file" onChange={handleFileChange}></input>
+                {previewProductImage && <Image className={addProductstyles.preview_image} width={100} height={100} src={previewProductImage}></Image>}
                 {console.warn(previewProductImage)}
-                <button onClick={() => addProduct()}> add product</button>
+                <button className={addProductstyles.add_button} onClick={() => addProduct()}> Add Product</button>
                 {addProductMsg}
+                </div>
+
             </div>
         </>
     )

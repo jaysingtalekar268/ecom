@@ -3,7 +3,11 @@ import axiosInstance from "@/lib/axios/axios"
 
 export const getLogingData = async (data) => {
     try {
-        let result = await axiosInstance.post("/login",data).catch((error) => {
+        let result = await axiosInstance.post("/login",data,{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).catch((error) => {
             console.warn("something went wrong while getting user loged from login.queries", error)
         });
         return result

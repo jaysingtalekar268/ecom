@@ -17,6 +17,7 @@ const AddProduct = () => {
     const [productCatg, setProductCatg] = useState("");
     const [productPrice, setProductPrice] = useState("");
     const [productImage, setProductImage] = useState("");
+    const [productURL, setProductURL] = useState("");
     const [previewProductImage, setPreviewProductImage] = useState("");
     const [addProductMsg, setAdProductMsg] = useState("");
 
@@ -60,6 +61,8 @@ const AddProduct = () => {
             productDesc.length < 1 ||
             productPrice.length < 0 ||
             productCatg.length < 1
+            || productURL<1       // this is done to direcyly add  product url to database
+
         ) {
             return false;
         }
@@ -71,6 +74,8 @@ const AddProduct = () => {
             productDesc,
             productCatg,
             productPrice,
+            productURL,     // this is done to direcyly add  product url to database
+
         }
 
         const formData = new FormData();
@@ -100,6 +105,8 @@ const AddProduct = () => {
                 <input className={addProductstyles.input}onChange={(e) => setProductPrice(e.target.value)}></input>
                 <label className={addProductstyles.label}>Enter Product Catgeory</label>
                 <input className={addProductstyles.input}onChange={(e) => setProductCatg(e.target.value)}></input>
+                <label className={addProductstyles.label}>Enter Product URl</label>
+                <input className={addProductstyles.input}onChange={(e) => setProductURL(e.target.value)}></input>
 
                 <label className={addProductstyles.label}>Add Product Image</label>
                 <input className={addProductstyles.input} type="file" onChange={handleFileChange}></input>

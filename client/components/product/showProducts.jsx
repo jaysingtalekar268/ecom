@@ -51,7 +51,7 @@ export default function ShowProducts() {
                 <>
                  <Card key={index} className={productStyle.product_card}>
                        
-                       {/* <Card.Img src={element?.imageURL}  className={productStyle.product_image} /> */}
+                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
                   
                    <Card.Body className={productStyle.product_image}>
                        <Card.Title>{element.name}</Card.Title>

@@ -56,11 +56,11 @@ export default function BuyComponent() {
                         {buyNowData.description}
                     </Card.Text>
                     <Card.Text variant="primary">Price ₹{buyNowData.price}</Card.Text>
-                    <Button variant="primary" onClick={() => router.back()} >Cancel</Button>
-                    <Button variant="primary" onClick={() => handleOrderPlace()}>Buy Now</Button>
+                    <Button className={buyComponentStyles.cart_button} variant="primary" onClick={() => router.back()} >Cancel</Button>
+                    <Button className={buyComponentStyles.buy_button} variant="primary" onClick={() => handleOrderPlace()}>Buy Now</Button>
                 </Card.Body>
             </Card>
-
+           
         </div>
     )
 };

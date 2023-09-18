@@ -19,9 +19,7 @@ const user = require("./db/user");
 
 const app = express();
 app.use(express.json());
-app.use(cors(
-    
-))
+app.use(cors());
 
 app.use(session({
     saveUninitialized: true,
@@ -174,20 +172,24 @@ app.post("/addProduct", upload.single("image"), async (req, resp) => {
     console.warn("\n\n\n")
 
     if (req.file) {
-        let uploadedImageObject = null;
-        uploadedImageObject = await uploadTOs3(req.file.buffer).then((result) => {
+        /*    let uploadedImageObject = null;      // this is done to direcyly add  product url to database
+    
+           uploadedImageObject = await uploadTOs3(req.file.buffer).then((result) => {
+    
+    
+                return {
+                    msg: "uploaded sucessfully",
+                    imageURl: result.Location,
+                }
+            }).catch((err) => {
+                console.warn(err)
+            })
+            console.warn("uploadedImageObject" + uploadedImageObject.imageURl)
+            */    // this is done to direcyly add  product url to database
 
 
-            return {
-                msg: "uploaded sucessfully",
-                imageURl: result.Location,
-            }
-        }).catch((err) => {
-            console.warn(err)
-        })
-        console.warn("uploadedImageObject" + uploadedImageObject.imageURl)
-
-        if (uploadedImageObject?.imageURl != "") {
+        // if (uploadedImageObject?.imageURl != "") {
+        if (true || uploadedImageObject?.imageURl != "") {      // this is done to direcyly add  product url to database
             let productData = JSON.parse(req.body?.productData);
             if (productData.productName) {
                 let newProduct = new productSchema({
@@ -196,7 +198,8 @@ app.post("/addProduct", upload.single("image"), async (req, resp) => {
                     price: productData.productPrice,
                     catgory: productData.productCatg,
                     discount: 0,
-                    imageURL: uploadedImageObject.imageURl,
+                    // imageURL: uploadedImageObject.imageURl,     
+                    imageURL: productData.productURL, // this is dont to directly add image url into databse for that product
                 })
                 let result = await newProduct.save()
                 console.warn("product added successfully" + result)
@@ -403,24 +406,22 @@ app.post("/placeOrder", async (req, resp) => {
 })
 
 
-app.get("/getOrders",async(req,resp)=>{
+app.get("/getOrders", async (req, resp) => {
     let result = await orderSchema.find().populate('products');
     // console.warn(result)
 
-    if (result.length>=1)
-    {
+    if (result.length >= 1) {
 
         return resp.send({
-            success:true,
-            message:"Orders fetched successfully",
-            orderData:result
+            success: true,
+            message: "Orders fetched successfully",
+            orderData: result
         })
-    }else
-    {
+    } else {
         return resp.send({
-            success:false,
-            message:"Failed to get Orders",
-            orderData:result
+            success: false,
+            message: "Failed to get Orders",
+            orderData: result
         })
     }
 })

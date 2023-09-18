@@ -1,0 +1,23 @@
+
+.cart_button,.buy_button{
+    height: 50px;
+    border-style: none;
+    border-radius: 15px;
+    width: 120px;
+    cursor: pointer;
+    margin: 5px 10px;
+}
+.cart_button{
+    background-color: #ffd814;
+}
+.cart_button:hover{
+    background-color: #f1cd2e;
+
+}
+.buy_button{
+    background-color: #ffa41c;
+}
+
+.buy_button:hover{
+    background-color: #e39b2f;
+}

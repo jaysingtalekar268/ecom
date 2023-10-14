@@ -22,6 +22,7 @@ export default function Login() {
     const [userName, setUserName] = useState("");
     const [userPwd, setUserPwd] = useState("");
     const [userRole, setUserRole] = useState("");
+    const [userEmail, setUserEmail] = useState("");
     const [loginMessage, setLoginMessage] = useState("");
     const [register, setRegister] = useState(false);
 
@@ -34,71 +35,62 @@ export default function Login() {
 
 
     return (
-        <div className='columns-2'>
-          
-                <Image src={login_image}  ></Image>
-                {!register == true ?
-                    <div className='border -4'>
-                        <div className={"border-4  h-full"}>
-                            <div className="" >
-                                <label className={"text-2xl"}>Log in to Exclusive</label>
+
+        <div className={`${loginStyle.main_div} p-2`}>
+            <div className='w-2/3'>
+                <Image src={login_image}></Image>
+            </div>
+            <div className={`${loginStyle.left_div} w-1/3 ms-2`}>
+                <div className="flex flex-col">
+                    {register == true ? <>
+                        <label className='my-3  text-4xl'>Create an Account</label>
+                        <label className='my-3 '>Enter your details below</label>
+                        <input placeholder='Name' value={userName} onChange={(e) => setUserName(e.target.value)} className='my-3 outline outline-none border-b-2 h-8'></input>
+                        <input placeholder='Email or Phone Number' value={userEmail} onChange={(e) => setUserEmail(e.target.value)} className='border-b-2 my-3 outline outline-none h-8'></input>
+                        <div className='my-3 border-b-2 h-8'>
+                            <ToggleInput className="my-3" inputValue={userPwd} setinputValue={setUserPwd} />
+                        </div>
+                        <button className='my-3 rounded bg-orange-600 p-2 py-3 text-white '
+                        onClick={() => handleRegister(
+                            userName,
+                            userPwd,
+                            userRole,
+                            setLoginMessage,
+                            setRegister
+                        )}
+                        >Create Account</button>
+                        <label className='my-3'>Already have Account? <label className='border-b-2 ms-2 hover:cursor-pointer' onClick={() => setRegister(false)}> Log in</label></label>
+                    </>
+                        :
+                        <>
+                            <label className='my-3  text-4xl'>Log in to Exclusive</label>
+                            <label className='my-3 '>Enter your details below</label>
+                            <input value={userName} onChange={(e)=>setUserName(e.target.value)}
+                             placeholder='Email or Phone Number' className='border-b-2 my-3 outline outline-none h-8'></input>
+                            <div className='my-3 border-b-2 h-8'>
+                                <ToggleInput className="my-3"  inputValue={userPwd} setinputValue={setUserPwd} />
                             </div>
-                            <div>
-                                <label className={""}>Enter your details below</label>
-                            </div>
-                            <div>
-                                <input className={"outline outline-0"} value={userName} placeholder='Email or Phone Number' onChange={(e) => setUserName(e.target.value)}></input>
-                            </div>
-                            <div>
-                                {/* <input className={""} value={userPwd}  placeholder="Password"onChange={(e) => setUserPwd(e.target.value)}></input> */}
-                                <ToggleInput></ToggleInput>
-                            </div>
-                            <div>
-                                <button className={""} onClick={() => handleLogin(
+                            <label className='my-3 '>{loginMessage}</label>
+                            <div className=''>
+                                <button className='my-3 w-1/2 me-2 rounded bg-orange-600 p-2 py-3 text-white '
+                                 onClick={() => handleLogin(
                                     userName,
                                     userPwd,
                                     setLoginMessage,
                                     router,
                                     dispatch
+            
                                 )}
-                                >Login </button>
+                                >Log in</button>
+                                <label className='my-3 w-1/2 ms-2 hover:cursor-pointer  text-orange-700' onClick={() => alert("This feature is under development")}>Forget Password?</label>
                             </div>
-                            <div>
-                                {loginMessage}
-                            </div>
-                            <div>
-                                <label className={""} onClick={() => setRegister(true)}>New To site?..Register Now</label>
-                            </div>
-                        </div>
-                    </div>
-                    :
-                    <div className={""}>
-                        <div className={""}>
+                            <label className='my-3'>New to site? <label className='border-b-2 ms-2 hover:cursor-pointer' onClick={() => setRegister(true)}> Register here</label></label>
+                        </>}
+                </div>
 
-                            <label className={""}>Enter Username</label>
-                            <input className={""} value={userName} onChange={(e) => setUserName(e.target.value)}></input>
-                            <label className={""}>Enter Password</label>
-                            <input className={""} value={userPwd} onChange={(e) => setUserPwd(e.target.value)}></input>
-                            <label className={""}>Enter Email</label>
-                            <input className={""} value={userRole} onChange={(e) => setUserRole(e.target.value)}></input>
-                            <button className={""} onClick={() => handleRegister(
-                                userName,
-                                userPwd,
-                                userRole,
-                                setLoginMessage,
-                                setRegister
-                            )}
-                            >Register </button>
-                            {loginMessage}
-                            <label className={""} onClick={() => setRegister(false)}>Already registered...Sign in now</label>
-
-                        </div>
-                    </div>
-                }
             </div>
+        </div>
 
 
-
-    
     )
 }

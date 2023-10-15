@@ -12,9 +12,10 @@ export default function RootLayout({ children }) {
       <body >
         <ReduxStoreProvider>
           <NavbarComponent></NavbarComponent>
-         
+          <div className='px-8 '>
             {children}
-          <FooterComponent/>
+          </div>
+          <FooterComponent />
         </ReduxStoreProvider>
       </body>
     </html>

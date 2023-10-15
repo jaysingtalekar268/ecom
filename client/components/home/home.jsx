@@ -1,11 +1,16 @@
 import Product from "../product/product"
-
+import SectionMenu from "./sectionMenu"
+import HomeCarousel from "./carousel"
 const HomeComponent = () => {
   return (
     <>
-    <Product>
-      
-    </Product>
+      <div className="flex flex-row">
+        <SectionMenu />
+      <HomeCarousel className=""/>
+      </div>
+      <Product>
+
+      </Product>
     </>
   )
 }

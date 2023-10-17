@@ -2,8 +2,8 @@ import React from 'react'
 
 const SectionMenu = () => {
     return (
-        <div className='border-r-4 w-1/5'>
-            <ul>
+        <div className='leading-8 border-r-4  pr-4  pt-4 mr-4 w-1/4 '>
+            <ul >
                 <li>Womens's Fashion</li>
                 <li>Men's Fashion</li>
                 <li>Electronics</li>

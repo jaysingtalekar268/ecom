@@ -2,7 +2,7 @@
     /* border: solid red; */
     display: flex;
     flex-direction: row;
-    overflow-y: scroll;
+    flex-wrap: wrap;
 }
 
 .card_item {

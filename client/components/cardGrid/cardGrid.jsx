@@ -1,30 +1,31 @@
 import React from 'react'
-import cardSliderStyle from "@/styles/cardSlider/cardSlider.module.css"
+import cardGridStyle from "@/styles/cardGrid/cardGrid.module.css"
 import Image from "next/image"
 import { BiStar, BiSolidStar } from 'react-icons/bi'
-const CustomCardSlider = ({ cardItems }) => {
+
+const CardGrid = ({ cardItems }) => {
     return (
-        
-        <div className={cardSliderStyle.slider_div}>
+
+        <div className={cardGridStyle.slider_div}>
             {
                 cardItems.map((item, index) => {
                     return (
-                        <div className={cardSliderStyle.card_item}>
-                            <div className={cardSliderStyle.product_img_div}>
-                                <Image className={cardSliderStyle.card_image} src={item.productImage}></Image>
+                        <div className={cardGridStyle.card_item}>
+                            <div className={cardGridStyle.product_img_div}>
+                                <Image className={cardGridStyle.card_image} src={item.productImage}></Image>
                             </div>
                             <div>
                                 <span>{item.productName.slice(0, 20)}</span>
                             </div>
-                            <div className={cardSliderStyle.price_div}>
-                                <span className={cardSliderStyle.product_Price}>₹{item.productPrice} </span>
-                                <span className={cardSliderStyle.product_MRP}>₹{item.productMRP}</span>
+                            <div className={cardGridStyle.price_div}>
+                                <span className={cardGridStyle.product_Price}>₹{item.productPrice} </span>
+                                <span className={cardGridStyle.product_MRP}>₹{item.productMRP}</span>
                             </div>
-                            <div className={cardSliderStyle.rating_div}>
+                            <div className={cardGridStyle.rating_div}>
                                 {
                                     new Array((item.productRating)).fill(item.productRating).map((element, ind) => {
                                         return (
-                                            <BiSolidStar className={cardSliderStyle.rating_star} />
+                                            <BiSolidStar className={cardGridStyle.rating_star} />
                                         )
                                     })
                                 }
@@ -36,7 +37,7 @@ const CustomCardSlider = ({ cardItems }) => {
                                         )
                                     })
                                 }
-                                <span className={cardSliderStyle.product_star_count}>({item.productStarCount})</span>
+                                <span className={cardGridStyle.product_star_count}>({item.productStarCount})</span>
                             </div>
                         </div>
                     )
@@ -45,4 +46,4 @@ const CustomCardSlider = ({ cardItems }) => {
     )
 }
 
-export default CustomCardSlider
+export default CardGrid

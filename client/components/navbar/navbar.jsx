@@ -55,7 +55,7 @@ export default function NavbarComponent() {
                         <AiOutlineShoppingCart className={"m-2"} onClick={() => router.replace("/cart")} />
                         {/* <FaUserCircle className={"m-2 "} onClick={() => router.replace("/login")}/> */}
 
-                        <div className="group inline-block relative border-2 ">
+                        <div className="group inline-block relative ">
                             <FaUserCircle className="inline-flex items-center" />
                             <ul className="z-50 absolute right-0 top-10 hidden text-gray-700 py-3 px-3 group-hover:block rounded backdrop-blur-3xl text-lg whitespace-nowrap">
                                 <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><FiUser className="m-1"></FiUser> Manage My Account</li>

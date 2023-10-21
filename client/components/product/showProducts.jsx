@@ -48,33 +48,33 @@ export default function ShowProducts() {
         <div className={showProductstyles.main_div}>
             {console.warn(cookieValue)}
             {productData.map((element, index) =>
-                <>
-                 <Card key={index} className={productStyle.product_card}>
-                       
-                       <Card.Img src={element?.imageURL}  className={productStyle.product_image} />
-                  
-                   <Card.Body className={productStyle.product_image}>
-                       <Card.Title>{element.name}</Card.Title>
-                       <Card.Text>
-                           {element.description}
-                       </Card.Text>
-                       <Card.Text variant="primary"> ₹{element.price}</Card.Text>
-                       <Container fluid className={productStyle.button_div}>
-                           <Button className={productStyle.cart_button}
-                               onClick={() => handleAddToCart(
-                                   element._id,//product id
-                                   userCartData,
-                                   dispatch,
+                
+                    <Card key={index} className={productStyle.product_card}>
 
-                               )}>Add To cart</Button>
-                           <Button className={productStyle.buy_button}
-                               onClick={() => handleBuyNow(index)}
-                           >Buy Now
-                           </Button>
-                       </Container>
-                   </Card.Body>
-               </Card>
-                </>
+                        <Card.Img  src={element?.imageURL} className={productStyle.product_image} />
+
+                        <Card.Body className={productStyle.product_image}>
+                            <Card.Title>{element.name}</Card.Title>
+                            <Card.Text>
+                                {element.description}
+                            </Card.Text>
+                            <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                            <Container fluid className={productStyle.button_div}>
+                                <Button className={productStyle.cart_button}
+                                    onClick={() => handleAddToCart(
+                                        element._id,//product id
+                                        userCartData,
+                                        dispatch,
+
+                                    )}>Add To cart</Button>
+                                <Button className={productStyle.buy_button}
+                                    onClick={() => handleBuyNow(index)}
+                                >Buy Now
+                                </Button>
+                            </Container>
+                        </Card.Body>
+                    </Card>
+                
             )}
         </div>
     )

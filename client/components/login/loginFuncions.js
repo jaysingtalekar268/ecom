@@ -20,8 +20,10 @@ export const handleLogin = async (
         userPwd,
     }
     if (data.userName.length < 1 || data.userPwd.length < 1)
+    {
+        alert("Please enter all the details")
         return false;
-
+    }
     try {
         let result = await getLogingData(data).catch((error) => {
             console.warn("something went wrong while getting user login data from login function" + error)

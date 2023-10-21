@@ -1,0 +1,48 @@
+.slider_div {
+    /* border: solid red; */
+    display: flex;
+    flex-direction: row;
+    overflow-y: scroll;
+}
+
+.card_item {
+    width: 16rem;
+    height: 16rem;
+    /* border: solid green; */
+    margin: 0.2rem 1rem;
+    padding: 0.2rem;
+
+}
+
+.product_img_div {
+    height: 10rem;
+    width: 15rem;
+}
+
+.card_image {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+
+}
+
+
+.product_MRP {
+    text-decoration: line-through;
+}
+
+.rating_div {
+    display: flex;
+    flex-direction: row;
+}
+
+.rating_star {
+    color: #FFAD33;
+
+    /* background-color: #FFAD33; */
+}
+
+.product_star_count {
+    margin-top: -5px;
+    margin-left: 5px;
+}

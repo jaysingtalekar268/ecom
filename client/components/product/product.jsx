@@ -10,29 +10,32 @@ import { useRouter } from 'next/navigation'
 export default function Product() {
 
   const router = useRouter();
-  const [userCookie,setUserCookie] =useState();
-  useEffect(()=>{
-    let tempCookie=JSON.parse(localStorage.getItem('ecom'));
-    if(tempCookie==undefined && tempCookie?.userRole==undefined &&tempCookie==null )
-    {
+  const [userCookie, setUserCookie] = useState();
+  useEffect(() => {
+    let tempCookie = JSON.parse(localStorage.getItem('ecom'));
+    if (tempCookie == undefined && tempCookie?.userRole == undefined && tempCookie == null) {
       router.replace("/login")
     }
     setUserCookie(tempCookie);
-   
-  },[])
-    
-    
 
-    const userRole= userCookie?.userRole;
+  }, [])
 
 
-    return (
-        <div className={productStyle.main_div}>
-          { userRole&& userRole=="user" ?
-           ( <ShowProducts></ShowProducts>)
+
+  const userRole = userCookie?.userRole;
+
+
+  return (
+    <div className={productStyle.main_div}>
+      {userRole ?
+        <>
+          {userRole && userRole == "user" ?
+            (<ShowProducts></ShowProducts>)
             :
             (<AddProduct></AddProduct>)
           }
-        </div>
-    )
+        </>
+        : <h1>Page is loading</h1>}
+    </div>
+  )
 }

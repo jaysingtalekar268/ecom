@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react";
 import navbarStyle from "../../styles/navbar/navbar.module.css"
 import { useRouter } from "next/navigation"
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle} from 'react-icons/fa';
+import {  FiUser } from 'react-icons/fi';
 import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
-
-
+import {TbLogout2} from "react-icons/tb"
+import { BiStar, BiSolidStar } from 'react-icons/bi'
+import {RiShoppingBag3Line}from "react-icons/ri"
 export default function NavbarComponent() {
 
     const router = useRouter()
@@ -48,13 +50,23 @@ export default function NavbarComponent() {
                     <div className="mx-2">
                         <input className={"mx-5 outline-none bg-zinc-100 p-2 rounded w-full"} placeholder="What are you looking for?"></input>
                     </div>
-                    <div className="ms-2 px-2 flex flex-row align-middle text-2xl">
-                        <AiOutlineHeart className={"m-2"}  />
-                        <AiOutlineShoppingCart className={"m-2"}  onClick={() => router.replace("/cart")} ></AiOutlineShoppingCart>
-                        <FaUserCircle className={"m-2 "} onClick={() => router.replace("/login")}>
-                        </FaUserCircle>
-                    </div>
+                    <div className="ms-5 px-2 flex flex-row align-middle text-2xl">
+                        <AiOutlineHeart className={"m-2"} />
+                        <AiOutlineShoppingCart className={"m-2"} onClick={() => router.replace("/cart")} />
+                        {/* <FaUserCircle className={"m-2 "} onClick={() => router.replace("/login")}/> */}
 
+                        <div className="group inline-block relative border-2 border-red-600">
+                            <FaUserCircle className="inline-flex items-center" />
+                            <ul className="absolute right-0 top-10 hidden text-gray-700 py-3 px-3 group-hover:block rounded backdrop-blur-3xl text-lg whitespace-nowrap">
+                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><FiUser className="m-1"></FiUser> Manage My Account</li>
+                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><RiShoppingBag3Line className="m-1"/>My Order</li>
+                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><BiStar className="m-1"></BiStar>My Reviews</li>
+                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"> <TbLogout2 className="m-1"></TbLogout2>Logout</li>
+                            </ul>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>

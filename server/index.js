@@ -287,6 +287,7 @@ app.get("/getCart", async (req, resp) => {
 
 })
 
+
 app.post("/addToCart", async (req, resp) => {
     let result = await userSchema.updateOne({ _id: req.body.userId },
         { $push: { cart: req.body.productId } }

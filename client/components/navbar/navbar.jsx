@@ -2,12 +2,12 @@
 import { useState, useEffect } from "react";
 import navbarStyle from "../../styles/navbar/navbar.module.css"
 import { useRouter } from "next/navigation"
-import { FaUserCircle} from 'react-icons/fa';
-import {  FiUser } from 'react-icons/fi';
+import { FaUserCircle } from 'react-icons/fa';
+import { FiUser } from 'react-icons/fi';
 import { AiOutlineShoppingCart, AiOutlineHeart } from 'react-icons/ai';
-import {TbLogout2} from "react-icons/tb"
+import { TbLogout2 } from "react-icons/tb"
 import { BiStar, BiSolidStar } from 'react-icons/bi'
-import {RiShoppingBag3Line}from "react-icons/ri"
+import { RiShoppingBag3Line } from "react-icons/ri"
 export default function NavbarComponent() {
 
     const router = useRouter()
@@ -59,10 +59,10 @@ export default function NavbarComponent() {
                             <FaUserCircle className="inline-flex items-center" />
                             <ul className="z-50 absolute right-0 top-10 hidden text-gray-700 py-3 px-3 group-hover:block rounded backdrop-blur-3xl text-lg whitespace-nowrap">
                                 <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><FiUser className="m-1"></FiUser> Manage My Account</li>
-                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><RiShoppingBag3Line className="m-1"/>My Order</li>
+                                <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><RiShoppingBag3Line className="m-1" />My Order</li>
                                 <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"><BiStar className="m-1"></BiStar>My Reviews</li>
                                 <li className="flex flex-row my-1 text-black rounded px-1  hover:bg-gray-400 hover:text-white"
-                                onClick={() => router.replace("/login")}
+                                    onClick={() => router.replace("/login")}
                                 > <TbLogout2 className="m-1"></TbLogout2>Logout</li>
                             </ul>
                         </div>

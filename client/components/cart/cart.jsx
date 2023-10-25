@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { getCart } from '../login/loginFuncions';
 import { setCartData } from '@/store/features/cartSlice/cartSlice';
 import cartStyle from '@/styles/cart/cart.module.css'
+import PhoneImage from "@/public/phone.jpeg"
+import Image from 'next/image';
 
 export default function CartComponent() {
     const dispatch = useDispatch();
@@ -15,11 +17,8 @@ export default function CartComponent() {
     }, [])
 
     useEffect(() => {
-
         if (userDetails != undefined || userDetails?.userId != undefined)
             getdata()
-
-
     }, [])
 
     const getdata = async () => {
@@ -32,7 +31,7 @@ export default function CartComponent() {
     console.warn(userCartData)
     return (
         <>
-            <div className={cartStyle.main_div}>
+            {/* <div className={cartStyle.main_div}>
                 {userCartData?.map((element, index) =>
                     <Card className={cartStyle.product_card} key={index} >
                         <Container className={cartStyle.product_image_div} fluid={true}>
@@ -51,6 +50,23 @@ export default function CartComponent() {
 
                     </Card>
                 )}
+            </div> */}
+            <div className='grid grid-cols-4 border-2'>
+                <div>
+                    <div ><span>Product</span></div>
+                    <div ><span>Price</span></div>
+                    <div ><span>Quantity</span></div>
+                    <div ><span>SubTotal</span></div>
+                </div>
+                <div>
+                    <div >
+                        <Image src={PhoneImage}></Image>
+
+                    </div>
+                    <div ><span>₹{654}</span></div>
+                    <div ><input type='number' value={54} /></div>
+                    <div ><span>₹{654}</span></div>
+                </div>
             </div>
             {userCartData[0] &&
                 <div>

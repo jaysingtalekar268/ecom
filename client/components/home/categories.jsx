@@ -7,9 +7,9 @@ import { CiHeadphones } from "react-icons/ci"
 const Catgories = () => {
     return (
         <div className=''>
-            <span className='text-4xl font-semibold'>Browse By Category</span>
+            <span className='text-4xl font-semibold mx-2'>Browse By Category</span>
             <div className='text-8xl flex flex-row m-3     '>
-                <div className='mr-3 p-3 border-1 border-black mr-2 rounded flex flex-col w-full h-full justify-center'>
+                <div className='mx-3 p-3 border-1 border-black mr-2 rounded flex flex-col w-full h-full justify-center'>
                     <GiSmartphone className='w-full ' ></GiSmartphone>
                     <span className='text-base  flex justify-center'>Phones</span>
                 </div>

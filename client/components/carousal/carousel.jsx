@@ -58,7 +58,7 @@ const CustomCarousal = ({ carousalItems }) => {
             <>
               {index == carousalCurrentIndex &&
                 <div className={carousalStyle.carousal_item} key={index}>
-                  <Image className={carousalStyle.carousal_image} src={item.image} alt={`${index} Image`}></Image>
+                  <Image className={carousalStyle.carousal_image} src={item.imageURL} alt={`${index} Image`} width={100} height={100}></Image>
                   {/* <span className={carousalStyle.carousal_text}>{item.text}</span> */}
                 </div>
               }

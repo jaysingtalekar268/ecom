@@ -12,6 +12,9 @@ import { handleAddToCart } from './productFunction';
 import { useRouter } from 'next/navigation';
 import { setBuyNowData } from '@/store/features/cartSlice/cartSlice';
 import productStyle from '@/styles/product/showProduct.module.css'
+import { sendProductData } from '@/queries/kafka/kafka.queries';
+import getUserRole from '@/utils/userRole';
+
 export default function ShowProducts() {
     const cookieValue = JSON.parse(localStorage.getItem('ecom'));
     const [productData, setProductData] = useState([]);
@@ -42,39 +45,59 @@ export default function ShowProducts() {
 
     };
 
+    const handleKafkaClick = async (index) => {
+        const userData = getUserRole();
+        if (userData?.userId) {
+            const kafkaMessageData = {
+                topic: "test",
+                message: JSON.stringify({
+                    "userId": userData.userId,
+                    "productId": productData[index]._id
+                })
+            }
+
+            let result = await sendProductData(kafkaMessageData);
+            console.warn("kafka click result", result)
+        }
+
+    };
+
     // Convert the JSON string back to an object
 
     return (
         <div className={showProductstyles.main_div}>
             {console.warn(cookieValue)}
             {productData.map((element, index) =>
-                
-                    <Card key={index} className={productStyle.product_card}>
 
-                        <Card.Img  src={element?.imageURL} className={productStyle.product_image} />
+                <Card key={index} className={productStyle.product_card}>
 
-                        <Card.Body className={productStyle.product_image}>
-                            <Card.Title>{element.name}</Card.Title>
-                            <Card.Text>
-                                {element.description}
-                            </Card.Text>
-                            <Card.Text variant="primary"> ₹{element.price}</Card.Text>
-                            <Container fluid className={productStyle.button_div}>
-                                <Button className={productStyle.cart_button}
-                                    onClick={() => handleAddToCart(
-                                        element._id,//product id
-                                        userCartData,
-                                        dispatch,
+                    <Card.Img src={element?.imageURL} className={productStyle.product_image} />
 
-                                    )}>Add To cart</Button>
-                                <Button className={productStyle.buy_button}
-                                    onClick={() => handleBuyNow(index)}
-                                >Buy Now
-                                </Button>
-                            </Container>
-                        </Card.Body>
-                    </Card>
-                
+                    <Card.Body className={productStyle.product_image}>
+                        <Card.Title>{element.name}</Card.Title>
+                        <Card.Text>
+                            {element.description}
+                        </Card.Text>
+                        <Card.Text variant="primary"> ₹{element.price}</Card.Text>
+                        <Container fluid className={productStyle.button_div}>
+                            <Button className={productStyle.cart_button}
+                                onClick={() => handleAddToCart(
+                                    element._id,//product id
+                                    userCartData,
+                                    dispatch,
+
+                                )}>Add To cart</Button>
+                            <Button className={productStyle.buy_button}
+                                onClick={async () => {
+                                    handleKafkaClick(index)
+                                    handleBuyNow(index)
+                                }}
+                            >Buy Now
+                            </Button>
+                        </Container>
+                    </Card.Body>
+                </Card>
+
             )}
         </div>
     )

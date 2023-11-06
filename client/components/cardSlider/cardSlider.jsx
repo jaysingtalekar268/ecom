@@ -9,20 +9,20 @@ const CustomCardSlider = ({ cardItems }) => {
             {
                 cardItems.map((item, index) => {
                     return (
-                        <div className={cardSliderStyle.card_item}>
+                        <div className={cardSliderStyle.card_item} key={index}>
                             <div className={cardSliderStyle.product_img_div}>
-                                <Image className={cardSliderStyle.card_image} src={item.productImage}></Image>
+                                <Image className={cardSliderStyle.card_image} src={item.imageURL} width={100}  height={100}></Image>
                             </div>
                             <div>
-                                <span>{item.productName.slice(0, 20)}</span>
+                                <span>{item.name.slice(0, 20)}</span>
                             </div>
                             <div className={cardSliderStyle.price_div}>
-                                <span className={cardSliderStyle.product_Price}>₹{item.productPrice} </span>
-                                <span className={cardSliderStyle.product_MRP}>₹{item.productMRP}</span>
+                                <span className={cardSliderStyle.product_Price}>₹{item.price} </span>
+                                <span className={cardSliderStyle.product_MRP}>₹{item.price}</span>
                             </div>
                             <div className={cardSliderStyle.rating_div}>
                                 {
-                                    new Array((item.productRating)).fill(item.productRating).map((element, ind) => {
+                                    new Array((5)).fill(2).map((element, ind) => {
                                         return (
                                             <BiSolidStar className={cardSliderStyle.rating_star} />
                                         )
@@ -30,7 +30,7 @@ const CustomCardSlider = ({ cardItems }) => {
                                 }
 
                                 {
-                                    new Array((5 - item.productRating)).fill(5 - item.productRating).map((element, ind) => {
+                                    new Array((5 - 3)).fill(5 - 3).map((element, ind) => {
                                         return (
                                             <BiStar />
                                         )
@@ -39,6 +39,7 @@ const CustomCardSlider = ({ cardItems }) => {
                                 <span className={cardSliderStyle.product_star_count}>({item.productStarCount})</span>
                             </div>
                         </div>
+                        
                     )
                 })}
         </div>

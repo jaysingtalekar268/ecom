@@ -1,2 +1,4 @@
 server/node_modules/
 server/.env
+server/db/.env
+server/secure-connect-ecom-casd.zip

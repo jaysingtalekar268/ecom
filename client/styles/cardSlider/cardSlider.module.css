@@ -1,22 +1,27 @@
 .slider_div {
-    /* border: solid red; */
+    /* border: solid yellow; */
     display: flex;
     flex-direction: row;
-    overflow-y: scroll;
+    overflow-x: auto;
+    width: 100%;
+     /* padding-right: 2rem;  */
+    box-sizing: border-box;   
+    scroll-padding: 0.5rem; /* Adjust the padding as needed to completely hide partially visible items */
+    box-sizing: border-box;
 }
 
 .card_item {
-    width: 16rem;
+    flex: 0 0 auto;
+    /* Maintain the initial size; do not grow or shrink */
     height: 16rem;
-    /* border: solid green; */
     margin: 0.2rem 1rem;
     padding: 0.2rem;
-
+    scroll-snap-align: start;
 }
 
 .product_img_div {
     height: 10rem;
-    width: 15rem;
+    /* width: 15rem; */
 }
 
 .card_image {

@@ -4,9 +4,8 @@ import productStyle from "../../styles/product/product.module.css"
 import Image from 'next/image'
 import productImage from "../../public/product.jpeg"
 import ShowProducts from './showProducts'
-import AddProduct from './addProduct'
 import { useRouter } from 'next/navigation'
-
+import AdminProduct from './AdminProduct'
 export default function Product() {
 
   const router = useRouter();
@@ -24,10 +23,14 @@ export default function Product() {
 
   const userRole = userCookie?.userRole;
 
-
-  return (
-    <div className={productStyle.main_div}>
-      {userRole ?
+  if (userRole == "manager") {
+    return (<AdminProduct></AdminProduct>)
+  }
+  else if (userRole == "user") {
+    return (
+      <div className={productStyle.main_div}>
+        <ShowProducts></ShowProducts>
+        {/* {userRole ?
         <>
           {userRole && userRole == "user" ?
             (<ShowProducts></ShowProducts>)
@@ -35,7 +38,8 @@ export default function Product() {
             (<AddProduct></AddProduct>)
           }
         </>
-        : <h1>Page is loading</h1>}
-    </div>
-  )
+        : <h1>Page is loading</h1>} */}
+      </div>
+    )
+  }
 }

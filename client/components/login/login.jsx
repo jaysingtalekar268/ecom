@@ -51,13 +51,13 @@ export default function Login() {
                             <ToggleInput className="my-3" inputValue={userPwd} setinputValue={setUserPwd} />
                         </div>
                         <button className='my-3 rounded bg-orange-600 p-2 py-3 text-white '
-                        onClick={() => handleRegister(
-                            userName,
-                            userPwd,
-                            userRole,
-                            setLoginMessage,
-                            setRegister
-                        )}
+                            onClick={() => handleRegister(
+                                userName,
+                                userPwd,
+                                userRole,
+                                setLoginMessage,
+                                setRegister
+                            )}
                         >Create Account</button>
                         <label className='my-3'>Already have Account? <label className='border-b-2 ms-2 hover:cursor-pointer' onClick={() => setRegister(false)}> Log in</label></label>
                     </>
@@ -65,22 +65,22 @@ export default function Login() {
                         <>
                             <label className='my-3  text-4xl'>Log in to Exclusive</label>
                             <label className='my-3 '>Enter your details below</label>
-                            <input value={userName} onChange={(e)=>setUserName(e.target.value)}
-                             placeholder='Email or Phone Number' className='border-b-2 my-3 outline outline-none h-8'></input>
+                            <input value={userName} onChange={(e) => setUserName(e.target.value)}
+                                placeholder='Email or Phone Number' className='border-b-2 my-3 outline outline-none h-8'></input>
                             <div className='my-3 border-b-2 h-8'>
-                                <ToggleInput className="my-3"  inputValue={userPwd} setinputValue={setUserPwd} />
+                                <ToggleInput className="my-3" inputValue={userPwd} setinputValue={setUserPwd} />
                             </div>
                             <label className='my-3 '>{loginMessage}</label>
                             <div className=''>
                                 <button className='my-3 w-1/2 me-2 rounded bg-orange-600 p-2 py-3 text-white '
-                                 onClick={() => handleLogin(
-                                    userName,
-                                    userPwd,
-                                    setLoginMessage,
-                                    router,
-                                    dispatch
-            
-                                )}
+                                    onClick={() => handleLogin(
+                                        userName,
+                                        userPwd,
+                                        setLoginMessage,
+                                        router,
+                                        dispatch
+
+                                    )}
                                 >Log in</button>
                                 <label className='my-3 w-1/2 ms-2 hover:cursor-pointer  text-orange-700' onClick={() => alert("This feature is under development")}>Forget Password?</label>
                             </div>

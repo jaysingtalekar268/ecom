@@ -7,7 +7,7 @@ import {
 
 import { getCartData } from "@/queries/cart/cart.queries";
 import { setCartData } from "@/store/features/cartSlice/cartSlice";
-
+import { setUserLoginData } from "@/store/features/login/loginSlice"
 export const handleLogin = async (
     userName,
     userPwd,
@@ -19,8 +19,7 @@ export const handleLogin = async (
         userName,
         userPwd,
     }
-    if (data.userName.length < 1 || data.userPwd.length < 1)
-    {
+    if (data.userName.length < 1 || data.userPwd.length < 1) {
         alert("Please enter all the details")
         return false;
     }
@@ -35,10 +34,13 @@ export const handleLogin = async (
         if (result.data.success) {
             let data = { userId: result.data.userId, }
             console.warn("i got this cart")
-       
+
             console.warn(await getCart(data))
             dispatch(
-                setCartData( await getCart(data))
+                setCartData(await getCart(data))
+            )
+            dispatch(
+                setUserLoginData(result.data)
             )
             localStorage.setItem("ecom", JSON.stringify({
                 userId: result.data.userId,
@@ -46,8 +48,14 @@ export const handleLogin = async (
             })
             );
 
-
             router.replace("/home")
+
+            setTimeout(() => {
+                window.location.reload();
+
+            }, 1000);
+
+
         }
 
     } catch (error) {
